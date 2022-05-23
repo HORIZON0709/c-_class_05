@@ -20,7 +20,7 @@
 //********************************
 namespace
 {
-enum ACTION
+enum class ACTION
 {/* çsìÆ */
 	NONE = 0,
 	CLASS,		//éˆã∆
