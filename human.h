@@ -30,11 +30,12 @@ public:		/* 静的メンバ関数宣言 */
 	static CHuman* Create(TYPE type);	//生成
 	static void ReleaseAll();			//全ての人間の破棄
 	static void OutputAll();			//全ての人間を出力
-	static int GetNumAll();				//総数を取得
-	static int GetNumTeacher();			//先生の数を取得
-	static int GetNumStudent();			//生徒の数を取得
+public:	/* Get系 */
+	static int GetNumAll();		//総数を取得
+	static int GetNumTeacher();	//先生の数を取得
+	static int GetNumStudent();	//生徒の数を取得
 private:
-	static void OutputNum();
+	static void OutputNum();	//数の表示
 
 public:		/* コンストラクタ・デストラクタ */
 	CHuman();
@@ -44,6 +45,8 @@ public:		/* コンストラクタ・デストラクタ */
 public:		/* 仮想関数宣言 */
 	virtual void Init() = 0;	//初期化 (純粋仮想関数「～ = 0;」…関数の実態は不要)
 	virtual void Input() = 0;	//入力
+	virtual void Class() = 0;	//授業
+	virtual void Rest() = 0;	//休憩
 	virtual void Output() = 0;	//出力
 	virtual void Uninit() = 0;	//終了
 

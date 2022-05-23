@@ -9,10 +9,27 @@
 //インクルード
 //********************************
 #include "main.h"
+#include "human.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+
+//********************************
+//列挙型の定義
+//********************************
+namespace
+{
+enum ACTION
+{/* 行動 */
+	NONE = 0,
+	CLASS,		//授業
+	REST,		//休憩
+	OUTPUT,		//出力
+	FINISH,		//終了
+	MAX
+};
+}// namespaceはここまで
 
 //********************************
 //定数の定義
@@ -37,9 +54,14 @@ namespace
 {
 void Init();
 void Input();
+void Action();
+
 void Output();
 void Uninit();
 
+int SetNumHuman();
+CHuman::TYPE SelectType();
+ACTION SelectAction();
 }// namespaceはここまで
 
 //===================================================
@@ -53,11 +75,8 @@ void main(void)
 	//入力
 	Input();
 
-	//出力
-	Output();
-
-	//終了
-	Uninit();
+	//行動
+	Action();
 
 	//終了メッセージ & Enter入力待ち
 	printf("\n\n プログラムを終了します。お疲れ様でした。");
@@ -82,7 +101,8 @@ namespace
 //---------------------------------------------------
 void Init()
 {
-	
+	//全ての人間の破棄
+	CHuman::ReleaseAll();
 }
 
 //---------------------------------------------------
@@ -90,21 +110,21 @@ void Init()
 //---------------------------------------------------
 void Input()
 {
-	//敵の数を設定
-	int nNumEnemy = SetNumEnemy();
+	//人間の数を設定
+	int nNumHuman = SetNumHuman();
 
-	for (int i = 0; i < nNumEnemy; i++)
+	for (int i = 0; i < nNumHuman; i++)
 	{
 		//何体目か表示
 		printf("\n 《 %d体目 》", (i + 1));
 
 		//敵の種類を選択
-		CEnemy::TYPE type = SelectType();
+		CHuman::TYPE type = SelectType();
 
 		//敵の生成
-		CEnemy* pEnemy = CEnemy::Create(type);
+		CHuman* pHuman = CHuman::Create(type);
 
-		if (pEnemy == nullptr)
+		if (pHuman == nullptr)
 		{//NULLチェック
 			continue;
 		}
@@ -112,10 +132,50 @@ void Input()
 		/* nullptrでは無い場合 */
 
 		//入力
-		pEnemy->Input();
+		pHuman->Input();
 
 		//画面をクリア
 		system("cls");
+	}
+}
+
+//---------------------------------------------------
+//行動
+//---------------------------------------------------
+void Action()
+{
+	//行動を選択
+	ACTION action = SelectAction();
+
+	while (1)
+	{
+		switch (action)
+		{
+		case ACTION::CLASS:		/* 授業 */
+			break;
+
+		case ACTION::REST:		/* 休憩 */
+			break;
+
+		case ACTION::OUTPUT:	/* 出力 */
+			Output();
+			break;
+
+		case ACTION::FINISH:	/* 終了 */
+			Uninit();
+			break;
+
+		case ACTION::NONE:
+		case ACTION::MAX:
+		default:
+			assert(false);
+			break;
+		}
+
+		if (action == ACTION::FINISH)
+		{//『終了』が選択された
+			break;
+		}
 	}
 }
 
@@ -124,7 +184,8 @@ void Input()
 //---------------------------------------------------
 void Output()
 {
-	
+	//全ての人間を出力
+	CHuman::OutputAll();
 }
 
 //---------------------------------------------------
@@ -132,23 +193,24 @@ void Output()
 //---------------------------------------------------
 void Uninit()
 {
-	
+	//全ての人間の破棄
+	CHuman::ReleaseAll();
 }
 
 //---------------------------------------------------
-//敵の数を設定
+//人間の数を設定
 //---------------------------------------------------
-int SetNumEnemy()
+int SetNumHuman()
 {
-	int nNumEnemy = 0;	//敵の数設定用
+	int nNumHuman = 0;	//人間の数設定用
 
 	while (1)
 	{
 		//メッセージ
-		printf("\n 敵の数を設定( %d～%d体まで ) > ", CEnemy::MIN_ENEMY, CEnemy::MAX_ENEMY);
-		scanf("%d", &nNumEnemy);
+		printf("\n 人間の数を設定( %d～%d体まで ) > ", CHuman::MIN_HUMAN, CHuman::MAX_HUMAN);
+		scanf("%d", &nNumHuman);
 
-		if ((nNumEnemy >= CEnemy::MIN_ENEMY) && (nNumEnemy <= CEnemy::MAX_ENEMY))
+		if ((nNumHuman >= CHuman::MIN_HUMAN) && (nNumHuman <= CHuman::MAX_HUMAN))
 		{//範囲内
 			break;
 		}
@@ -166,26 +228,26 @@ int SetNumEnemy()
 	//画面をクリア
 	system("cls");
 
-	return nNumEnemy;	//設定した敵の数を返す
+	return nNumHuman;	//設定した人間の数を返す
 }
 
 //---------------------------------------------------
-//敵の種類を選択
+//人間の種類を選択
 //---------------------------------------------------
-CEnemy::TYPE SelectType()
+CHuman::TYPE SelectType()
 {
-	CEnemy::TYPE selectType;	//敵の種類選択用
+	CHuman::TYPE selectType;	//人間の種類選択用
 
 	while (1)
 	{
 		//メッセージ
-		printf("\n 《 敵の種類を選択 》");
-		printf("\n [%d] 人型", CEnemy::TYPE::HUMAN);
-		printf("\n [%d] 鳥型", CEnemy::TYPE::BIRD);
+		printf("\n 《 人間の種類を選択 》");
+		printf("\n [%d] 先生", CHuman::TYPE::TEACHER);
+		printf("\n [%d] 生徒", CHuman::TYPE::STUDENT);
 		printf("\n 番号を入力 > ");
 		scanf("%d", &selectType);
 
-		if ((selectType > CEnemy::TYPE::NONE) && (selectType < CEnemy::TYPE::MAX))
+		if ((selectType > CHuman::TYPE::NONE) && (selectType < CHuman::TYPE::MAX))
 		{//範囲内
 			break;
 		}
@@ -200,6 +262,45 @@ CEnemy::TYPE SelectType()
 		system("cls");
 	}
 
-	return selectType;	//選択した敵の種類を返す
+	return selectType;	//選択した人間の種類を返す
+}
+
+//---------------------------------------------------
+//行動を選択
+//---------------------------------------------------
+ACTION SelectAction()
+{
+	ACTION action = ACTION::NONE;	//行動設定用
+
+	while (1)
+	{
+		//メッセージ
+		printf("\n 《 行動を選択 》");
+		printf("\n [%d] 授業", ACTION::CLASS);
+		printf("\n [%d] 休憩", ACTION::REST);
+		printf("\n [%d] 出力", ACTION::OUTPUT);
+		printf("\n [%d] 終了", ACTION::FINISH);
+		printf("\n 番号を入力 > ");
+		scanf("%d", &action);
+
+		if ((action > ACTION::NONE) && (action < ACTION::MAX))
+		{//範囲内
+			break;
+		}
+
+		/* 範囲外 */
+
+		//メッセージ & Enter入力待ち
+		printf("\n ※※※ 範囲外です ※※※");
+		PressEnter();
+
+		//画面をクリア
+		system("cls");
+	}
+
+	//画面をクリア
+	system("cls");
+
+	return action;	//設定した行動を返す
 }
 }

@@ -9,6 +9,8 @@
 //インクルード
 //********************************
 #include "human.h"
+#include "teacher.h"
+#include "student.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,13 +37,13 @@ CHuman* CHuman::Create(TYPE type)
 	case TYPE::TEACHER:	/* 先生 */
 
 		//メモリの動的確保
-		m_apHuman[nIdx] = new CEnemyHuman;
+		m_apHuman[nIdx] = new CTeacher;
 		break;
 
 	case TYPE::STUDENT:	/* 生徒 */
 
 		//メモリの動的確保
-		m_apHuman[nIdx] = new CEnemyBird;
+		m_apHuman[nIdx] = new CStudent;
 		break;
 
 	case TYPE::NONE:	/* 選択範囲外 */
@@ -93,7 +95,7 @@ void CHuman::ReleaseAll()
 void CHuman::OutputAll()
 {
 	//メッセージ
-	printf("\n 《 設定した敵のステータスはこちら 》");
+	printf("\n 《 設定した人間のステータスはこちら 》");
 
 	for (int i = 0; i < m_nNumAll; i++)
 	{
@@ -105,7 +107,7 @@ void CHuman::OutputAll()
 		/* nullptrでは無い場合 */
 
 		//何体目か表示
-		printf("\n\n ***** %d体目 *****",(i + 1));
+		printf("\n\n ***** %d人目 *****",(i + 1));
 
 		//出力
 		m_apHuman[i]->Output();
@@ -144,9 +146,9 @@ int CHuman::GetNumStudent()
 //===================================================
 void CHuman::OutputNum()
 {
-	printf("\n\n 敵の総数 : [ %d ]", GetNumAll());
-	printf("\n 人型 : [ %d ]", GetNumTeacher());
-	printf("\n 鳥型 : [ %d ]", GetNumStudent());
+	printf("\n\n 人間の総数 : [ %d ]", GetNumAll());
+	printf("\n 先生 : [ %d ]", GetNumTeacher());
+	printf("\n 生徒 : [ %d ]", GetNumStudent());
 }
 
 //===================================================
