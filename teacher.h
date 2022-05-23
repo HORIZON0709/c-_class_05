@@ -18,7 +18,7 @@ public:		/* コンストラクタ・デストラクタ */
 	CTeacher();
 	~CTeacher()override;
 
-public:		/* メンバ関数宣言 */
+public:		/* オーバーライド関数 */
 	void Init()override;	//初期化
 	void Input()override;	//入力
 	void Class()override;	//授業
@@ -26,7 +26,7 @@ public:		/* メンバ関数宣言 */
 	void Output()override;	//出力
 	void Uninit()override;	//終了
 
-private:	/* メンバ変数宣言 */
+private:	/* メンバ変数 */
 	int m_nTension;		//テンション
 };
 

@@ -30,6 +30,8 @@ public:		/* 静的メンバ関数宣言 */
 	static CHuman* Create(TYPE type);	//生成
 	static void ReleaseAll();			//全ての人間の破棄
 	static void OutputAll();			//全ての人間を出力
+	static void ClassAll();				//授業
+	static void RestAll();				//休憩
 public:	/* Get系 */
 	static int GetNumAll();		//総数を取得
 	static int GetNumTeacher();	//先生の数を取得
@@ -56,7 +58,7 @@ private:	/* 静的メンバ変数宣言 */
 	static int m_nNumTeacher;				//先生の数
 	static int m_nNumStudent;				//生徒の数
 
-protected:	/* メンバ変数宣言 */
+protected:	/* メンバ変数 */
 	char m_aName[MAX_NAME];		//名前
 	int m_nLife;				//体力
 };

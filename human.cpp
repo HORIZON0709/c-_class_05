@@ -21,9 +21,9 @@
 //********************************
 CHuman* CHuman::m_apHuman[MAX_HUMAN] = {};	//ポインタ
 
-int CHuman::m_nNumAll = 0;		//総数
-int CHuman::m_nNumTeacher = 0;	//先生の数
-int CHuman::m_nNumStudent = 0;	//生徒の数
+int CHuman::m_nNumAll = 0;				//総数
+int CHuman::m_nNumTeacher = 0;			//先生の数
+int CHuman::m_nNumStudent = 0;			//生徒の数
 
 //===================================================
 //生成
@@ -118,6 +118,44 @@ void CHuman::OutputAll()
 }
 
 //===================================================
+//授業
+//===================================================
+void CHuman::ClassAll()
+{
+	for (int i = 0; i < m_nNumAll; i++)
+	{
+		if (m_apHuman[i] == nullptr)
+		{//NULLチェック
+			continue;
+		}
+
+		/* nullptrでは無い場合 */
+
+		//授業
+		m_apHuman[i]->Class();
+	}
+}
+
+//===================================================
+//休憩
+//===================================================
+void CHuman::RestAll()
+{
+	for (int i = 0; i < m_nNumAll; i++)
+	{
+		if (m_apHuman[i] == nullptr)
+		{//NULLチェック
+			continue;
+		}
+
+		/* nullptrでは無い場合 */
+
+		//休憩
+		m_apHuman[i]->Rest();
+	}
+}
+
+//===================================================
 //総数を取得
 //===================================================
 int CHuman::GetNumAll()
@@ -164,19 +202,20 @@ CHuman::CHuman()
 //===================================================
 CHuman::CHuman(TYPE type)
 {
-	//メンバ変数をクリア
+	/* メンバ変数をクリア */
+
 	for (int i = 0; i < MAX_NAME; i++)
-	{
+	{//名前
 		m_aName[i] = NULL;
 	}
-	
-	m_nLife = 0;
+
+	m_nLife = 0;	//体力
 
 	//総数をカウントアップ
 	m_nNumAll++;
 
 	switch (type)
-	{
+	{//タイプごとの処理
 	case TYPE::TEACHER:	/* 先生 */
 		
 		//数をカウントアップ
@@ -189,7 +228,7 @@ CHuman::CHuman(TYPE type)
 		m_nNumStudent++;
 		break;
 
-	case TYPE::NONE:	/* 範囲選択外 */
+	case TYPE::NONE:	/* 選択範囲外 */
 	case TYPE::MAX:
 	default:
 		assert(false);

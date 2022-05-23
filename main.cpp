@@ -144,17 +144,21 @@ void Input()
 //---------------------------------------------------
 void Action()
 {
-	//行動を選択
-	ACTION action = SelectAction();
+	bool bFinish = false;	//終了フラグ
 
-	while (1)
+	while (!bFinish)
 	{
+		//行動を選択
+		ACTION action = SelectAction();
+
 		switch (action)
 		{
 		case ACTION::CLASS:		/* 授業 */
+			CHuman::ClassAll();
 			break;
 
 		case ACTION::REST:		/* 休憩 */
+			CHuman::RestAll();
 			break;
 
 		case ACTION::OUTPUT:	/* 出力 */
@@ -163,6 +167,7 @@ void Action()
 
 		case ACTION::FINISH:	/* 終了 */
 			Uninit();
+			bFinish = true;		//終了フラグを立てる
 			break;
 
 		case ACTION::NONE:
@@ -172,9 +177,13 @@ void Action()
 			break;
 		}
 
-		if (action == ACTION::FINISH)
-		{//『終了』が選択された
-			break;
+		if (!bFinish)
+		{//終了時は通らない
+			//Enter入力待ち
+			PressEnter();
+
+			//画面をクリア
+			system("cls");
 		}
 	}
 }
