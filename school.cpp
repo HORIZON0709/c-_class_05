@@ -145,6 +145,13 @@ void CSchool::Init()
 {
 	for (int i = 0; i < MAX_HUMAN; i++)
 	{
+		if (m_apHuman[i] != nullptr)
+		{//NULLチェック
+			continue;
+		}
+
+		/* nullptrの場合 */
+
 		if (i == 0)
 		{//最初の一人
 			m_apHuman[i] = CHuman::Create(CHuman::TYPE::TEACHER);	//先生を生成
