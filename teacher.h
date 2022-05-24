@@ -20,7 +20,6 @@ public:		/* コンストラクタ・デストラクタ */
 
 public:		/* オーバーライド関数 */
 	void Init()override;	//初期化
-	void Input()override;	//入力
 protected:
 	void Class()override;	//授業
 	void Rest()override;	//休憩

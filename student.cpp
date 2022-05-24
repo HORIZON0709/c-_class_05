@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //********************************
 //静的メンバ変数
@@ -41,22 +42,9 @@ CStudent::~CStudent()
 void CStudent::Init()
 {
 	//メンバ変数を初期化
-	m_nAbility = 0;
-}
-
-//===================================================
-//入力
-//===================================================
-void CStudent::Input()
-{
-	printf("\n 名前 > ");
-	scanf("%s", &m_aName[0]);
-
-	printf(" 体力 > ");
-	scanf("%d", &m_nLife);
-
-	printf(" 学力 > ");
-	scanf("%d", &m_nAbility);
+	strcpy(&m_aName[0], "有象無象");
+	m_nLife = 20;
+	m_nAbility = 20;
 }
 
 //===================================================

@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //********************************
 //静的メンバ変数
@@ -41,22 +42,9 @@ CTeacher::~CTeacher()
 void CTeacher::Init()
 {
 	//メンバ変数を初期化
-	m_nTension = 0;
-}
-
-//===================================================
-//入力
-//===================================================
-void CTeacher::Input()
-{
-	printf("\n 名前 > ");
-	scanf("%s", &m_aName[0]);
-
-	printf(" 体力 > ");
-	scanf("%d", &m_nLife);
-
-	printf(" テンション > ");
-	scanf("%d", &m_nTension);
+	strcpy(&m_aName[0], "ゆだちゃん");
+	m_nLife = 30;
+	m_nTension = 30;
 }
 
 //===================================================
@@ -89,7 +77,7 @@ void CTeacher::Rest()
 //===================================================
 void CTeacher::Output()
 {
-	printf("\n 名前 : [ %s ]", &m_aName[0]);		//名前
+	printf("\n 名前 : [ %s先生 ]", &m_aName[0]);	//名前
 	printf("\n 体力 : [ %d ]", m_nLife);			//体力
 	printf("\n テンション : [ %d ]", m_nTension);	//テンション
 }

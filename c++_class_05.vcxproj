@@ -148,12 +148,14 @@
   <ItemGroup>
     <ClCompile Include="human.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="school.cpp" />
     <ClCompile Include="student.cpp" />
     <ClCompile Include="teacher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="human.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="school.h" />
     <ClInclude Include="student.h" />
     <ClInclude Include="teacher.h" />
   </ItemGroup>
