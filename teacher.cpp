@@ -24,8 +24,7 @@
 CTeacher::CTeacher() : CHuman(TYPE::TEACHER),
 m_nTension(0)
 {
-	//ƒƒ“ƒo•Ï”‚ğƒNƒŠƒA
-	//m_nTension = 0;
+	
 }
 
 //===================================================

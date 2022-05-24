@@ -24,8 +24,7 @@
 CStudent::CStudent() : CHuman(TYPE::STUDENT),
 m_nAbility(0)
 {
-	//ƒƒ“ƒo•Ï”‚ğƒNƒŠƒA
-	//m_nAbility = 0;
+	
 }
 
 //===================================================
