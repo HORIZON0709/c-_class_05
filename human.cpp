@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 //********************************
@@ -103,12 +104,8 @@ CHuman::CHuman(TYPE type)
 {
 	/* メンバ変数をクリア */
 
-	for (int i = 0; i < MAX_NAME; i++)
-	{//名前
-		m_aName[i] = NULL;
-	}
-
-	m_nLife = 0;	//体力
+	memset(&m_aName[0], 0, sizeof(m_aName));
+	m_nLife = 0;
 
 	//総数をカウントアップ
 	m_nNumAll++;
