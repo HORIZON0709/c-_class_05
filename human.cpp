@@ -102,8 +102,7 @@ CHuman::CHuman()
 //===================================================
 CHuman::CHuman(TYPE type)
 {
-	/* メンバ変数をクリア */
-
+	//メンバ変数をクリア
 	memset(&m_aName[0], 0, sizeof(m_aName));
 	m_nLife = 0;
 
